@@ -1,0 +1,15 @@
+{
+  "name": "@titanica/web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "The Titanica web application.",
+  "scripts": {
+    "dev": "echo \"(web) dev server not scaffolded yet — see docs/02-ARCHITECTURE.md\"",
+    "build": "echo \"(web) build not scaffolded yet\"",
+    "lint": "echo \"(web) lint: not configured yet\"",
+    "typecheck": "echo \"(web) typecheck: not configured yet\""
+  },
+  "dependencies": {
+    "@titanica/ui": "workspace:*"
+  }
+}
