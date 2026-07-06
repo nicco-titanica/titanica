@@ -1,0 +1,49 @@
+name: titanica
+
+# Local development infrastructure that mirrors production (docs/02-ARCHITECTURE.md §8).
+# Stage 0 needs Postgres. By default this starts ONLY the database; run the app on the
+# host with `pnpm --filter @titanica/web dev` for fast iteration.
+#
+#   docker compose up -d db                 # just Postgres (the Stage 0 need)
+#   docker compose --profile full up        # prod-like: app container + Postgres
+#
+# Meilisearch (search, docs/02 §7) joins this file in a later stage; it is not Stage 0.
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: titanica
+      POSTGRES_PASSWORD: titanica
+      POSTGRES_DB: titanica
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U titanica -d titanica"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Prod-like local run of the app. Off by default (profile "full"); mirrors the image
+  # Coolify builds on Hetzner.
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URI: postgres://titanica:titanica@db:5432/titanica
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:-dev-only-insecure-secret}
+      NEXT_PUBLIC_SERVER_URL: http://localhost:3000
+    ports:
+      - "3000:3000"
+    profiles: ["full"]
+
+volumes:
+  db_data:

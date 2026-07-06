@@ -1,0 +1,95 @@
+/*
+ * Titanica — design tokens.
+ * The single source of truth is docs/04-DESIGN.md §10. This file is the build's
+ * transcription of it, not a re-decision.
+ *
+ * Hard rules encoded here:
+ *   - Closed palette: ink / paper / red. There is NO #FFFFFF anywhere (§2).
+ *   - Two typefaces only: Bodoni Moda (display) + Libre Franklin (text) (§3).
+ *     Their font-family values come from next/font (--font-display / --font-text,
+ *     set on <html> in layout.tsx) — never redefined here.
+ *   - No gradients, no decorative shadow/blur/glow. Structure = space + hairline +
+ *     surface swap (§7).
+ */
+
+:root {
+  /* Closed palette — the only colours in the House (§2). */
+  --ink: #1c1a16;
+  --paper: #f2eee5;
+  --red: #c02d1c;
+
+  /* Type scale (§4) — proposed defaults; tunable in-browser, rules are not. */
+  --step-display: clamp(3.8rem, 6vw, 5.2rem); /* Bodoni, optical */
+  --step-h1: 2.6rem; /* Bodoni */
+  --step-h2: 1.9rem; /* Bodoni */
+  --bodoni-floor: 1.5rem; /* below this, Franklin only (§3/§4) */
+  --step-lead: 1.35rem; /* Franklin 300 */
+  --step-body: 1.0625rem; /* Franklin 400 */
+  --step-label: 0.875rem; /* Franklin 500–600 */
+  --step-meta: 0.8125rem; /* Franklin 400 */
+
+  /* Reading contract (§4). */
+  --measure: 66ch;
+  --leading-body: 1.6;
+
+  /* Structure (§7). */
+  --rule: 1px;
+
+  /* Space ramp (§7): 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96. */
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4rem;
+  --space-8: 6rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text), system-ui, sans-serif;
+  font-size: var(--step-body);
+  line-height: var(--leading-body);
+  font-style: normal; /* Franklin is never italic (§3). */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+.display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 500;
+  line-height: 1.05;
+  margin: 0;
+}
+
+hr {
+  border: 0;
+  border-top: var(--rule) solid var(--ink);
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--red);
+  color: var(--paper);
+}

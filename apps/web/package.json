@@ -2,14 +2,37 @@
   "name": "@titanica/web",
   "version": "0.0.0",
   "private": true,
-  "description": "The Titanica web application.",
+  "description": "The Titanica web application — Next.js + Payload CMS v3.",
   "scripts": {
-    "dev": "echo \"(web) dev server not scaffolded yet — see docs/02-ARCHITECTURE.md\"",
-    "build": "echo \"(web) build not scaffolded yet\"",
-    "lint": "echo \"(web) lint: not configured yet\"",
-    "typecheck": "echo \"(web) typecheck: not configured yet\""
+    "dev": "next dev",
+    "devsafe": "rm -rf .next && next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "generate:types": "payload generate:types",
+    "generate:importmap": "payload generate:importmap",
+    "payload": "payload"
   },
   "dependencies": {
-    "@titanica/ui": "workspace:*"
+    "@payloadcms/db-postgres": "3.85.2",
+    "@payloadcms/next": "3.85.2",
+    "@payloadcms/richtext-lexical": "3.85.2",
+    "@titanica/ui": "workspace:*",
+    "graphql": "^16.8.1",
+    "next": "16.2.10",
+    "payload": "3.85.2",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "sharp": "^0.34.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=20.9.0"
   }
 }
