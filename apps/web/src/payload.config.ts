@@ -6,22 +6,26 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
+import { Domains } from './collections/Domains'
+import { Kingdoms } from './collections/Kingdoms'
+import { Lenses } from './collections/Lenses'
 import { Users } from './collections/Users'
+import { Works } from './collections/Works'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-// Stage 0 — Foundation.
-// The single system (Payload owns content + membership + auth over one Postgres) is
-// ratified in docs/02-ARCHITECTURE.md §1. The Catalog + membership collections
-// (Kingdom, Domain, Work, Lens, Member, Nomination — docs/03-DATABASE.md §10.1) are
-// modelled in Stage 1, NOT here. Stage 0 ships only the admin operator login so the
-// panel can boot.
+// One system: Payload owns content + membership + auth over one Postgres
+// (docs/02-ARCHITECTURE.md §1).
+//
+// Stage 1 — the Catalog spine: Kingdom, Domain, Work, Lens (docs/03-DATABASE.md §10.1),
+// with the frozen-code system and the visibility invariants. Membership (Member,
+// Nomination) is Stage 3 and is NOT modelled yet. `Users` remains the CMS operator login.
 export default buildConfig({
   admin: {
     user: Users.slug,
   },
-  collections: [Users],
+  collections: [Kingdoms, Domains, Works, Lenses, Users],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
