@@ -116,6 +116,17 @@ Rules: use the variant that reads on the ground (ink wordmark on paper, paper wo
 ink); preserve clear space (≥ the cap-height on all sides); respect a minimum legible
 size; **never** recolor, restretch, add effects, or reconstruct it in live type.
 
+**Official assets (constitutional).** The two official logos live in `apps/web/public/`:
+
+- `wordmark-ink.png` — ink letters, for a **paper** ground (the primary reading surface).
+- `wordmark-paper.png` — paper letters, for an **ink** ground.
+
+These files ARE the wordmark; they are used verbatim, never regenerated in type. Known
+caveat: the supplied assets carry a **baked, non-transparent background** (`#F4F0E6` on the
+ink variant; `#171717` on the paper variant) that does not exactly match `--paper #F2EEE5`
+/ `--ink #1C1A16`. Transparent-background versions are preferred so the seal sits on any
+ground without a seam — pending founder decision; the artwork is not altered unilaterally.
+
 ---
 
 ## 6. The monogram — the arrow →

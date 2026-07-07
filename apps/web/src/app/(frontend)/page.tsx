@@ -26,9 +26,12 @@ const kicker: React.CSSProperties = {
   margin: 0,
 }
 
-const hero: React.CSSProperties = {
-  fontSize: 'var(--step-display)',
-  letterSpacing: '-0.01em',
+// The wordmark is ALWAYS the official PNG asset (wordmark-ink.png / wordmark-paper.png)
+// and is NEVER set as live text (docs/04-DESIGN.md §5). Paper ground ⇒ the ink wordmark.
+const wordmark: React.CSSProperties = {
+  display: 'block',
+  height: 'auto',
+  width: 'clamp(13rem, 34vw, 22rem)',
   margin: 'var(--space-4) 0 0',
 }
 
@@ -78,9 +81,9 @@ export default function Page() {
     <main style={page}>
       <p style={kicker}>Stage 0 — Foundation</p>
 
-      <h1 style={hero} className="display">
-        Titanica
-      </h1>
+      {/* Official wordmark — PNG asset, never live type (§5). */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/wordmark-ink.png" alt="Titanica" style={wordmark} />
 
       <p style={standfirst}>A House of Intelligence.</p>
 
