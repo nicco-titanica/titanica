@@ -116,16 +116,17 @@ Rules: use the variant that reads on the ground (ink wordmark on paper, paper wo
 ink); preserve clear space (≥ the cap-height on all sides); respect a minimum legible
 size; **never** recolor, restretch, add effects, or reconstruct it in live type.
 
-**Official assets (constitutional).** The two official logos live in `apps/web/public/`:
+**Official assets (constitutional — FINAL, not amendable).** In `apps/web/public/`:
 
-- `wordmark-ink.png` — ink letters, for a **paper** ground (the primary reading surface).
-- `wordmark-paper.png` — paper letters, for an **ink** ground.
+- `wordmark-ink.png` — ink letters, transparent, for a **paper** ground.
+- `wordmark-paper.png` — paper letters, transparent, for an **ink** ground.
+- `monogram-ink.png` — the `T.ca` monogram, paper letters on an **ink** square.
+- `monogram-paper.png` — the `T.ca` monogram, ink letters on a **paper** square.
 
-These files ARE the wordmark; they are used verbatim, never regenerated in type. Known
-caveat: the supplied assets carry a **baked, non-transparent background** (`#F4F0E6` on the
-ink variant; `#171717` on the paper variant) that does not exactly match `--paper #F2EEE5`
-/ `--ink #1C1A16`. Transparent-background versions are preferred so the seal sits on any
-ground without a seam — pending founder decision; the artwork is not altered unilaterally.
+These files ARE the marks; they are used **verbatim**, never regenerated in type or edited.
+The wordmarks are transparent (they sit on any ground with no seam). The two `T.ca`
+monograms are the compact app-mark and are wired as the site **favicons** — the paper-ground
+mark for light UAs, the ink-ground mark for dark (`apps/web/src/app/(frontend)/layout.tsx`).
 
 ---
 

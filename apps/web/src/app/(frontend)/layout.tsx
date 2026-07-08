@@ -24,9 +24,19 @@ const franklin = Libre_Franklin({
   display: 'swap',
 })
 
+// Favicons are the official T.ca monograms (docs/04-DESIGN.md §5): the paper-ground mark
+// for light UAs, the ink-ground mark for dark. Used verbatim — the assets are final.
 export const metadata: Metadata = {
   title: 'Titanica',
   description: 'A House of Intelligence.',
+  icons: {
+    icon: [
+      { url: '/monogram-ink.png', type: 'image/png' },
+      { url: '/monogram-paper.png', media: '(prefers-color-scheme: light)' },
+      { url: '/monogram-ink.png', media: '(prefers-color-scheme: dark)' },
+    ],
+    apple: '/monogram-ink.png',
+  },
 }
 
 export default function FrontendLayout({ children }: { children: React.ReactNode }) {
