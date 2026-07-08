@@ -19,38 +19,39 @@ export const KINGDOMS: KingdomSeed[] = [
   { roman: 'V', name: 'The Individual', order: 5 },
 ]
 
-// order is within-Kingdom. Fill each `code` (two uppercase letters, globally unique).
+// order is within-Kingdom. Codes are two uppercase letters, globally unique (§3.2).
+// Founder-ratified 2026-07-08; FL/IM were already confirmed in 03 §3.2.
 export const DOMAINS: DomainSeed[] = [
   // I · The Forces
-  { code: 'FL', name: 'Fault Lines', kingdomRoman: 'I', order: 1 }, // confirmed (03 §3.2)
-  { code: CODE_PLACEHOLDER, name: 'The Reserve', kingdomRoman: 'I', order: 2 },
-  { code: CODE_PLACEHOLDER, name: 'The Subsurface', kingdomRoman: 'I', order: 3 },
-  { code: CODE_PLACEHOLDER, name: 'Terra', kingdomRoman: 'I', order: 4 },
-  { code: CODE_PLACEHOLDER, name: 'Strategos', kingdomRoman: 'I', order: 5 },
-  { code: 'IM', name: 'Imperium', kingdomRoman: 'I', order: 6 }, // confirmed (03 §3.2)
-  { code: CODE_PLACEHOLDER, name: 'Fides', kingdomRoman: 'I', order: 7 },
-  { code: CODE_PLACEHOLDER, name: 'Infra', kingdomRoman: 'I', order: 8 },
+  { code: 'FL', name: 'Fault Lines', kingdomRoman: 'I', order: 1 },
+  { code: 'RE', name: 'The Reserve', kingdomRoman: 'I', order: 2 },
+  { code: 'SB', name: 'The Subsurface', kingdomRoman: 'I', order: 3 },
+  { code: 'TE', name: 'Terra', kingdomRoman: 'I', order: 4 },
+  { code: 'ST', name: 'Strategos', kingdomRoman: 'I', order: 5 },
+  { code: 'IM', name: 'Imperium', kingdomRoman: 'I', order: 6 },
+  { code: 'FI', name: 'Fides', kingdomRoman: 'I', order: 7 },
+  { code: 'IF', name: 'Infra', kingdomRoman: 'I', order: 8 },
   // II · The Systems
-  { code: CODE_PLACEHOLDER, name: 'Dry Powder', kingdomRoman: 'II', order: 1 },
-  { code: CODE_PLACEHOLDER, name: 'The Firm', kingdomRoman: 'II', order: 2 },
-  { code: CODE_PLACEHOLDER, name: 'Inference', kingdomRoman: 'II', order: 3 },
-  { code: CODE_PLACEHOLDER, name: 'The Frontier', kingdomRoman: 'II', order: 4 },
+  { code: 'DP', name: 'Dry Powder', kingdomRoman: 'II', order: 1 },
+  { code: 'FM', name: 'The Firm', kingdomRoman: 'II', order: 2 },
+  { code: 'IN', name: 'Inference', kingdomRoman: 'II', order: 3 },
+  { code: 'FR', name: 'The Frontier', kingdomRoman: 'II', order: 4 },
   // III · The Knowledge
-  { code: CODE_PLACEHOLDER, name: 'Eidos', kingdomRoman: 'III', order: 1 },
-  { code: CODE_PLACEHOLDER, name: 'Strata', kingdomRoman: 'III', order: 2 },
-  { code: CODE_PLACEHOLDER, name: 'Babel', kingdomRoman: 'III', order: 3 },
-  { code: CODE_PLACEHOLDER, name: 'Foucault', kingdomRoman: 'III', order: 4 },
+  { code: 'EI', name: 'Eidos', kingdomRoman: 'III', order: 1 },
+  { code: 'SR', name: 'Strata', kingdomRoman: 'III', order: 2 },
+  { code: 'BA', name: 'Babel', kingdomRoman: 'III', order: 3 },
+  { code: 'FO', name: 'Foucault', kingdomRoman: 'III', order: 4 },
   // IV · The Culture
-  { code: CODE_PLACEHOLDER, name: 'Vitruvio', kingdomRoman: 'IV', order: 1 },
-  { code: CODE_PLACEHOLDER, name: 'Veblen', kingdomRoman: 'IV', order: 2 },
-  { code: CODE_PLACEHOLDER, name: 'Terroir', kingdomRoman: 'IV', order: 3 },
-  { code: CODE_PLACEHOLDER, name: 'Zeitgeist', kingdomRoman: 'IV', order: 4 },
-  { code: CODE_PLACEHOLDER, name: 'The Arena', kingdomRoman: 'IV', order: 5 },
+  { code: 'VI', name: 'Vitruvio', kingdomRoman: 'IV', order: 1 },
+  { code: 'VE', name: 'Veblen', kingdomRoman: 'IV', order: 2 },
+  { code: 'TR', name: 'Terroir', kingdomRoman: 'IV', order: 3 },
+  { code: 'ZE', name: 'Zeitgeist', kingdomRoman: 'IV', order: 4 },
+  { code: 'AR', name: 'The Arena', kingdomRoman: 'IV', order: 5 },
   // V · The Individual
-  { code: CODE_PLACEHOLDER, name: 'Paideia', kingdomRoman: 'V', order: 1 },
-  { code: CODE_PLACEHOLDER, name: 'Lectio', kingdomRoman: 'V', order: 2 },
-  { code: CODE_PLACEHOLDER, name: 'Faber', kingdomRoman: 'V', order: 3 },
-  { code: CODE_PLACEHOLDER, name: 'Diaspora', kingdomRoman: 'V', order: 4 },
+  { code: 'PA', name: 'Paideia', kingdomRoman: 'V', order: 1 },
+  { code: 'LE', name: 'Lectio', kingdomRoman: 'V', order: 2 },
+  { code: 'FA', name: 'Faber', kingdomRoman: 'V', order: 3 },
+  { code: 'DI', name: 'Diaspora', kingdomRoman: 'V', order: 4 },
 ]
 
 // Guard: unresolved or non-conforming (non 2-uppercase-letter) or duplicate codes.
