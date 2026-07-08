@@ -1,4 +1,10 @@
-import type { CollectionBeforeChangeHook, CollectionConfig, FieldHook } from 'payload'
+import type {
+  CollectionBeforeChangeHook,
+  CollectionBeforeValidateHook,
+  CollectionConfig,
+  FieldHook,
+} from 'payload'
+import { APIError } from 'payload'
 
 import { slugify } from '../utilities/slugify'
 
@@ -71,24 +77,37 @@ const computeDisplayedCode: FieldHook = ({ data }) => {
   return `${data?.codeKingdom}.${data?.codeDomain}.${String(ordinal).padStart(3, '0')}`
 }
 
-// --- Visibility invariants (§4, §7.2, §7.3), enforced inline at the field. ---
-const validatePublicReleaseAt = (
-  value: unknown,
-  { siblingData }: { siblingData: Partial<{ publicMode: string; memberReleaseAt: string }> },
-): true | string => {
-  const mode = siblingData?.publicMode
-  if (mode === 'NEVER' && value) {
-    return 'NEVER means never (§7.3): a member-only Work must have no public release date.'
+// --- Visibility invariants (§4, §7.2, §7.3), enforced at the collection level so they
+//     hold for EVERY write path (REST, GraphQL, admin) regardless of a field's admin
+//     condition. A field-level validate is skipped when the field is conditionally hidden,
+//     which is exactly the NEVER case — so the guarantee must live here. ---
+const enforceVisibilityInvariants: CollectionBeforeValidateHook = ({ data, originalDoc }) => {
+  if (!data) return data
+
+  // Effective values: fall back to the stored doc for partial updates.
+  const mode = data.publicMode ?? originalDoc?.publicMode
+  const pub = data.publicReleaseAt !== undefined ? data.publicReleaseAt : originalDoc?.publicReleaseAt
+  const mem = data.memberReleaseAt !== undefined ? data.memberReleaseAt : originalDoc?.memberReleaseAt
+
+  if (mode === 'NEVER') {
+    // §7.3 — NEVER means never: the public date is structurally absent. Coerce to null.
+    data.publicReleaseAt = null
+    return data
   }
-  if (mode === 'SCHEDULED' && !value) {
-    return 'SCHEDULED requires a public release date (§4).'
-  }
-  if (mode === 'SCHEDULED' && value && siblingData?.memberReleaseAt) {
-    if (new Date(value as string) < new Date(siblingData.memberReleaseAt)) {
-      return 'Members must precede the public (§7.2): public release must be on or after member release.'
+
+  if (mode === 'SCHEDULED') {
+    if (!pub) {
+      throw new APIError('SCHEDULED requires a public release date (§4).', 400)
+    }
+    if (mem && new Date(pub as string) < new Date(mem as string)) {
+      throw new APIError(
+        'Members must precede the public (§7.2): public release must be on or after member release.',
+        400,
+      )
     }
   }
-  return true
+
+  return data
 }
 
 export const Works: CollectionConfig = {
@@ -99,6 +118,7 @@ export const Works: CollectionConfig = {
     defaultColumns: ['title', 'code', 'domain', 'format', 'publicMode'],
   },
   hooks: {
+    beforeValidate: [enforceVisibilityInvariants],
     beforeChange: [mintFrozenCode],
   },
   fields: [
@@ -179,7 +199,6 @@ export const Works: CollectionConfig = {
     {
       name: 'publicReleaseAt',
       type: 'date',
-      validate: validatePublicReleaseAt,
       admin: {
         position: 'sidebar',
         date: { pickerAppearance: 'dayAndTime' },
